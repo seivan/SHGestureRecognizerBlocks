@@ -37,11 +37,11 @@ Setup
 Put this either in specific files or your project prefix file
 
 ```objective-c
-#import 'UIGestureRecognizer+SHGestureRecognizerBlocks.h'
+#import "UIGestureRecognizer+SHGestureRecognizerBlocks.h"
 ```
 or
 ```objective-c
-#import 'SHGestureRecognizerBlocks.h'
+#import "SHGestureRecognizerBlocks.h"
 ```
 
 Usage
