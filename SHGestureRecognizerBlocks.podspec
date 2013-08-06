@@ -1,9 +1,10 @@
 Pod::Spec.new do |s|
-  name    = "SHGestureRecognizerBlocks"
-  url     = "https://github.com/seivan/#{name}"
-  git_url = "#{url}.git"
+  name           = "SHGestureRecognizerBlocks"
+  url            = "https://github.com/seivan/#{name}"
+  git_url        = "#{url}.git"
+  source_files   = "#{name}/**/*.{h,m}"
   s.name         = name
-  s.version      = "0.9.0"
+  s.version      = "1.0.0"
   s.summary      = "Prefixed  UIGestureRecognizer category with blocks, auto-removed. Swizzle free!"
   s.description  = <<-DESC
 
@@ -29,6 +30,6 @@ Pod::Spec.new do |s|
 
   s.platform  = :ios, "6.0"
 
-  s.source_files = "#{name}/**/*.{h,m}"
+  s.source_files = source_files
   s.requires_arc = true
 end
