@@ -19,8 +19,8 @@
 @end
 
 @implementation SHGestureRecognizerBlocksManager
-#pragma mark -
-#pragma mark Init & Dealloc
+
+#pragma mark - Init & Dealloc
 -(instancetype)init; {
   self = [super init];
   if (self) {
@@ -44,8 +44,8 @@
   
 }
 
-#pragma mark -
-#pragma mark Debugger
+
+#pragma mark - Debugger
 -(void)SH_memoryDebugger; {
   double delayInSeconds = 2.0;
   dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -74,22 +74,22 @@
 
 @implementation UIGestureRecognizer (SHGestureRecognizerBlocks)
 
-#pragma mark -
-#pragma mark Init
+
+#pragma mark - Init
 
 
 +(instancetype)SH_gestureRecognizerWithBlock:(SHGestureRecognizerBlock)theBlock; {
   return [[[self class] alloc] initWithBlock:theBlock];
 }
 
-#pragma mark -
-#pragma mark Add block
+
+#pragma mark - Add block
 -(void)SH_addBlock:(SHGestureRecognizerBlock)theBlock; {
-  [self.mutableBlocks addObject:[theBlock copy]];
+  if(theBlock) [self.mutableBlocks addObject:[theBlock copy]];
 }
 
-#pragma mark -
-#pragma mark Remove block
+
+#pragma mark - Remove block
 -(void)SH_removeBlock:(SHGestureRecognizerBlock)theBlock; {
   [self.mutableBlocks removeObject:theBlock];
   if(self.mutableBlocks.count < 1)
@@ -103,20 +103,20 @@
 }
 
 
-#pragma mark -
-#pragma mark Properties
 
-#pragma mark -
+#pragma mark - Properties
+
+
 #pragma mark Getters
 -(NSSet *)SH_blocks; {
   return self.mutableBlocks.copy;
 }
 
-#pragma mark -
-#pragma mark Privates
 
-#pragma mark -
-#pragma mark Init
+#pragma mark - Privates
+
+
+#pragma mark - Init
 
 -(instancetype)initWithBlock:(SHGestureRecognizerBlock)theBlock; {
   self = [self initWithTarget:self action:@selector(performBlockAction:)];
@@ -128,10 +128,9 @@
 }
 
 
-#pragma mark -
 #pragma mark - Properties
 
-#pragma mark -
+
 #pragma mark - Getters
 -(NSMutableSet *)mutableBlocks; {
   NSMutableSet * blocks = [SHGestureRecognizerBlocksManager.sharedManager.mapBlocks
@@ -143,7 +142,6 @@
   return blocks;
 }
 
-#pragma mark -
 #pragma mark - Setters
 -(void)setMutableBlocks:(NSMutableSet *)theSet; {
   if(theSet == nil) {
@@ -157,12 +155,8 @@
     
 }
 
-#pragma mark -
-#pragma mark KVO
 
-
-#pragma mark -
-#pragma mark Actions
+#pragma mark - Actions
 -(void)performBlockAction:(UIGestureRecognizer *)theGestureRecognizer {
   id<NSFastEnumeration> blocks = self.SH_blocks;
 
