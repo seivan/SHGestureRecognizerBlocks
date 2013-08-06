@@ -15,44 +15,47 @@
 
 @implementation SHGestureRecognizerBlocksCallbacksIntegration
 
-//#pragma mark - Add block
-//-(void)testSH_addControlEvents_withBlock; {
-//  __block BOOL didAssert = NO;
-//  [self.button SH_addControlEvents:UIControlEventTouchUpInside withBlock:^(UIControl *sender) {
-//    STAssertEqualObjects(self.button, sender, nil);
-//    didAssert = YES;
-//  }];
-//  
-//  [tester tapViewWithAccessibilityLabel:self.titleButton];
-//  STAssertTrue(didAssert, nil);
-//  
-//  
-//}
-//
-//-(void)testSH_addControlEventTouchUpInsideWithBlock_theBlock; {
-//  __block BOOL didAssert = NO;
-//  [self.button SH_addControlEventTouchUpInsideWithBlock:^(UIControl *sender) {
-//    STAssertEqualObjects(self.button, sender, nil);
-//    didAssert = YES;
-//  }];
-//  
-//  [tester tapViewWithAccessibilityLabel:self.titleButton];
-//  STAssertTrue(didAssert, nil);
-//  
-//}
-//
-//
-//-(void)testSample; {
-//  __block BOOL didAssert = NO;
-//  [self.button SH_addControlEvents:UIControlEventTouchDragExit withBlock:^(UIControl *sender) {
-//    STAssertEqualObjects(self.button, sender, nil);
-//    STAssertEqualObjects(self.button, sender, nil);
-//    didAssert = YES;
-//  }];
-//  
-//  [tester swipeViewWithAccessibilityLabel:self.titleButton inDirection:KIFSwipeDirectionLeft];
-//  STAssertTrue(didAssert, nil);
-//}
-//
+#pragma mark - Init
+-(void)testSH_gestureRecognizerWithBlock; {
+  __block BOOL didAssert = NO;
+  
+  self.gesture = [UITapGestureRecognizer SH_gestureRecognizerWithBlock:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
+    didAssert = YES;
+    STAssertEqualObjects(sender, self.gesture, nil);
+    STAssertEquals(state, UIGestureRecognizerStateEnded, nil);
+    STAssertEquals(location, self.button.frame.origin, nil);
+    
+  }];
+  [self.button addGestureRecognizer:self.gesture];
+  [tester tapViewWithAccessibilityLabel:self.titleButton];
+  STAssertTrue(didAssert, nil);
+}
+
+#pragma mark - Add block
+-(void)testSH_addBlock; {
+  __block BOOL didAssertFirst  = NO;
+  __block BOOL didAssertSecond = NO;
+  self.gesture = [UITapGestureRecognizer SH_gestureRecognizerWithBlock:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
+    didAssertFirst = YES;
+    STAssertEqualObjects(sender, self.gesture, nil);
+    STAssertEquals(state, UIGestureRecognizerStateEnded, nil);
+    STAssertEquals(location, self.button.frame.origin, nil);
+    
+  }];
+  
+  [self.gesture SH_addBlock:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
+    didAssertSecond = YES;
+    STAssertEqualObjects(sender, self.gesture, nil);
+    STAssertEquals(state, UIGestureRecognizerStateEnded, nil);
+    STAssertEquals(location, self.button.frame.origin, nil);
+    
+  }];
+  
+  [self.button addGestureRecognizer:self.gesture];
+  [tester tapViewWithAccessibilityLabel:self.titleButton];
+  
+  STAssertTrue(didAssertFirst, nil);
+  STAssertTrue(didAssertSecond, nil);
+}
 
 @end
