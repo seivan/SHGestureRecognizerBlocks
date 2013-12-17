@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
   git_url        = "#{url}.git"
   source_files   = "#{name}/**/*.{h,m}"
   s.name         = name
-  s.version      = "1.0.0"
+  s.version      = "1.1.0"
   s.summary      = "Prefixed  UIGestureRecognizer category with blocks, auto-removed. Swizzle free!"
   s.description  = <<-DESC
 
