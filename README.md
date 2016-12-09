@@ -1,3 +1,5 @@
+Deprecated, please use [RxCocoa](https://github.com/ReactiveX/RxSwift) 
+
 SHGestureRecognizerBlocks
 ==========
 [![CI Status](https://img.shields.io/travis/seivan/SHGestureRecognizerBlocks.svg?style=flat)](https://travis-ci.org/seivan/SHGestureRecognizerBlocks)
